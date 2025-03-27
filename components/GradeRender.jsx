@@ -8,7 +8,7 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
 
   const handlePrint = () => {
     const oldTitle = document.title;
-    document.title = `${model.replace(/\s+/g, "_")}_${serial.replace(/\s+/g, "_")}_grade`;
+    document.title = `${model.replace(/\s+/g, "_")}_${serial.replace(/\s+/g, "_")}`;
     window.print();
     document.title = oldTitle;
   };
@@ -17,7 +17,7 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
     const element = resultRef.current;
     const opt = {
       margin: 0,
-      filename: `${model.replace(/\s+/g, "_")}_${serial.replace(/\s+/g, "_")}_grade.pdf`,
+      filename: `${model.replace(/\s+/g, "_")}_${serial.replace(/\s+/g, "_")}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
