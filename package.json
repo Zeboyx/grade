@@ -7,10 +7,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "dom-to-image": "^2.6.0",
-    "html-to-image": "^1.11.13",
-    "html2canvas": "^1.4.1",
-    "html2pdf.js": "^0.10.3",
     "next": "13.4.12",
     "react": "18.2.0",
     "react-dom": "18.2.0"
