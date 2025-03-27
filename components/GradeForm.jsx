@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -14,7 +14,15 @@ export default function GradeForm() {
     criteria: {},
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isClient, setIsClient] = useState(false);  // Nouveau state
 
+  useEffect(() => {
+    setIsClient(true);  // S'assurer que ce code s'exécute seulement côté client
+  }, []);
+
+  if (!isClient) {
+    return null; // Rendre rien avant que le code soit exécuté côté client
+  }
   const criteriaByDevice = {
     "PC Portable": [
       "Chassis",
