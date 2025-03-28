@@ -22,19 +22,28 @@ export default function GradeForm() {
       "Batterie",
       "Clavier",
       "Touchpad",
-      "Composants",
+      "CPU & RAM",
+      "Disque dur",
+      "Webcam",
+      "Hauts parleurs",
+      "Wifi/Bluetooth",
+      "Charnières",
       "Écran",
       "Ports",
       "Ventilateurs",
     ],
     "Tout-en-Un": [
       "Chassis",
-      "Composants",
+      "CPU & RAM",
+      "Disque dur",
+      "Webcam",
+      "Hauts parleurs",
+      "Wifi/Bluetooth",
       "Écran",
       "Ports",
       "Ventilateurs",
     ],
-    "PC Fixe": ["Chassis", "Composants", "Ports", "Ventilateurs"],
+    "PC Fixe": ["Chassis", "CPU & RAM", "Disque dur", "Wifi/Bluetooth", "Ports", "Ventilateurs"],
   };
 
   const gradeDescriptions = {
@@ -43,52 +52,86 @@ export default function GradeForm() {
       A: "Légères rayures",
       B: "Rayures visibles",
       C: "Rayures marquées",
+      D: "A changer",
     },
     Batterie: {
       "A+": ">85%",
       A: "75 à 85%",
       B: "50 à 75%",
-      C: "<50%",
+      C: "35 à 50%",
+      D: "A changer (<35%)",
     },
     Clavier: {
       "A+": "Excellent",
       A: "Usure minime",
       B: "Usure visible",
       C: "Usure marquée",
+      D: "A changer",
     },
     Touchpad: {
       "A+": "Excellent",
       A: "Usure minime",
       B: "Usure visible",
       C: "Usure marquée",
+      D: "A changer",
     },
-    Composants: {
+    'CPU & RAM': {
       "A+": "100% Fonctionnels",
-      A: "100% Fonctionnels",
-      B: "100% Fonctionnels",
-      C: "100% Fonctionnels",
+      D: 'A changer',
+    },
+    'Disque dur': {
+      "A+": ">85%",
+      A: "75 à 85%",
+      B: "50 à 75%",
+      C: "35 à 50%",
+      D: "A changer (<35%)",
+    },
+    Webcam: {
+      "A+": "Parfait état",
+      A: "Bon état",
+      C: "Tache(s)",
+      D: "A changer",
+    },
+    'Hauts parleurs': {
+      "A+": "Parfait état",
+      A: "Bon état",
+      B: "Grésillement légers",
+      C: "Grésillement marqués",
+      D: "A changer",
+    },
+    'Wifi/Bluetooth': {
+      "A+": "Fonctionnel",
+      D: "A changer",
+    },
+    Charnières: {
+      "A+": "Parfait état",
+      A: "Bon état",
+      C: "Etat d'usure",
+      D: "A changer",
     },
     Écran: {
       "A+": "Parfait état",
-      A: "Bon état",
-      B: "Bon état",
-      C: "Micro rayures",
+      A: "Bon état / micro rayures",
+      B: "Taches légères",
+      C: "Taches marquées",
+      D: "A changer",
     },
     Ports: {
       "A+": "Excellent",
       A: "Bon état",
       B: "Fonctionnels avec usure minime",
       C: "Défauts",
+      D: "A changer",
     },
     Ventilateurs: {
       "A+": "Excellent",
       A: "Bon état",
       B: "Légère usure",
       C: "Défauts",
+      D: "A changer",
     },
   };
-
-
+  
   const handleSelect = (criterion, grade) => {
     setForm((prev) => ({
       ...prev,
@@ -102,7 +145,7 @@ export default function GradeForm() {
   const handleGenerate = () => {
     setSubmitted(true);
   };
-
+  
   return (
     <div className="p-4 max-w-6xl mx-auto space-y-6">
       <div id="form">

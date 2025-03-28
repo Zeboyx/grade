@@ -25,20 +25,95 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
     html2pdf().set(opt).from(element).save();
   };
 
-  const gradeLabels = ["A+", "A", "B", "C"];
+  const gradeLabels = ["A+", "A", "B", "C", "D"];
   const gradeColors = {
     "A+": "#15803d",
     "A": "#4ade80",
     "B": "#fde047",
     "C": "#ef4444",
+    "D": "#b30004",
   };
   const borderColor1 = "#af0162";
   const borderColor2 = "#d0844a";
 
   const criteriaList = {
-    "PC Portable": ["Chassis", "Batterie", "Clavier", "Touchpad", "Composants", "\u00c9cran", "Ports", "Ventilateurs"],
-    "Tout-en-Un": ["Chassis", "Composants", "\u00c9cran", "Ports", "Ventilateurs"],
-    "PC Fixe": ["Chassis", "Composants", "Ports", "Ventilateurs"]
+    "PC Portable": [
+      "Chassis",
+      "Batterie",
+      "Clavier",
+      "Touchpad",
+      "CPU & RAM",
+      "Disque dur",
+      "Webcam",
+      "Hauts parleurs",
+      "Wifi/Bluetooth",
+      "Charnières",
+      "\u00c9cran",
+      "Ports",
+      "Ventilateurs",
+    ],
+    "Tout-en-Un": [
+      "Chassis",
+      "CPU & RAM",
+      "Disque dur",
+      "Webcam",
+      "Hauts parleurs",
+      "Wifi/Bluetooth",
+      "\u00c9cran",
+      "Ports",
+      "Ventilateurs",
+    ],
+    "PC Fixe": ["Chassis", "CPU & RAM", "Disque dur", "Wifi/Bluetooth", "Ports", "Ventilateurs"],
+  };
+
+  const gradePoints = {
+    "A+": 5,
+    "A": 4,
+    "B": 3,
+    "C": 2,
+    "D": 0, // D = éliminatoire
+  };
+
+  const weights = {
+    "Chassis": 1,
+    "Batterie": 4.5,
+    "Clavier": 2,
+    "Touchpad": 1,
+    "CPU & RAM": 1,
+    "Disque dur": 4,
+    "Webcam": 1,
+    "Hauts parleurs": 1,
+    "Wifi/Bluetooth": 1,
+    "Charnières": 2,
+    "Écran": 4,
+    "Ports": 2,
+    "Ventilateurs": 2,
+  };
+
+  const computeFinalGrade = () => {
+    let totalPoints = 0;
+    let totalWeight = 0;
+  
+    for (const crit of criteriaList[deviceType]) {
+      const grade = criteria[crit]?.grade;
+      if (!grade) continue;
+  
+      if (grade === "D") return "D"; // D = éliminatoire
+  
+      const points = gradePoints[grade] ?? 0;
+      const weight = weights[crit] ?? 1;
+  
+      totalPoints += points * weight;
+      totalWeight += weight;
+    }
+  
+    const average = totalPoints / totalWeight;
+  
+    if (average >= 4.7) return "A+";
+    if (average >= 4.0) return "A";
+    if (average >= 3.0) return "B";
+    if (average >= 2.0) return "C";
+    return "D";
   };
 
   return (
@@ -59,9 +134,35 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
         <h2 style={{ textAlign: "center", fontSize: 26, fontWeight: "bold", margin: "20px 0" }}>
           LE GRADE DE CE PRODUIT
         </h2>
-        <p style={{ marginBottom: 4 }}><strong>Modèle :</strong> {model}</p>
-        <p><strong>S/N :</strong> {serial}</p>
+        <div style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginTop: 16,
+            marginBottom: 8
+          }}>
+            <div>
+              <p style={{ marginBottom: 4 }}><strong>Modèle :</strong> {model}</p>
+              <p><strong>S/N :</strong> {serial}</p>
+            </div>
 
+            <div>
+              <p><strong>Grade final :</strong> <span style={{
+                backgroundColor: gradeColors[computeFinalGrade()],
+                width: 28,
+                height: 28,
+                borderRadius: "50%",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: computeFinalGrade() === "B" ? "black" : "white",
+                fontWeight: "bold",
+                fontSize: 14
+              }}>
+                {computeFinalGrade()}
+              </span></p>
+            </div>
+          </div>
         <table style={{ width: "100%", borderCollapse: "collapse", marginTop: 20, fontSize: 14 }}>
           <thead>
             <tr style={{ backgroundColor: "#f1f1f1" }}>
@@ -94,13 +195,19 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
                 </td>
                 {gradeLabels.map((grade) => {
                   const isSelected = criteria[crit]?.grade === grade;
+                  const description = gradeDescriptions[crit]?.[grade] || "";
+                  const bgColor = description === ""
+                    ? "black"
+                    : isSelected
+                      ? gradeColors[grade]
+                      : "transparent";
                   return (
                     <td
                       key={grade}
                       style={{
                         border: "0.5px solid #333",
                         padding: 8,
-                        backgroundColor: isSelected ? gradeColors[grade] : "transparent",
+                        backgroundColor: bgColor,
                         color: isSelected ? (grade === "B" ? "black" : "white") : "black",
                         textAlign: "center",
                         verticalAlign: "middle",
@@ -176,7 +283,7 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
         }
 
         @page {
-          size: landscape;
+          size: portrait;
           margin: 0;
         }
       `}</style>
