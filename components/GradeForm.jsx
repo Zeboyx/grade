@@ -7,10 +7,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import dynamic from "next/dynamic";
 const GradeRender = dynamic(() => import("./GradeRender"), { ssr: false });
 
-useEffect(() => {
-  document.title = "Attribution des grades";
-}, []);
-
 export default function GradeForm() {
   const [form, setForm] = useState({
     model: "",
@@ -19,6 +15,10 @@ export default function GradeForm() {
     criteria: {},
   });
   const [submitted, setSubmitted] = useState(false);
+  useEffect(() => {
+    document.title = "Attribution des grades";
+  }, []);
+  
 
   const criteriaByDevice = {
     "PC Portable": [
