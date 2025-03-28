@@ -101,7 +101,7 @@ export default function GradeForm() {
       D: "A changer",
     },
     'Wifi/Bluetooth': {
-      "A+": "Fonctionnel",
+      "A+": "100% Fonctionnel",
       D: "A changer",
     },
     Charnières: {
