@@ -7,6 +7,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import dynamic from "next/dynamic";
 const GradeRender = dynamic(() => import("./GradeRender"), { ssr: false });
 
+document.title = "Attribution des grades";
+
 export default function GradeForm() {
   const [form, setForm] = useState({
     model: "",
