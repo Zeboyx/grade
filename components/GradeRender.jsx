@@ -224,6 +224,7 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
             ))}
           </tbody>
         </table>
+        <p style={{textAlign: "center", marginTop: 10}}><strong>✅ Tous les composants ont été testés manuellement</strong></p>
       </div>
 
       <div style={{ display: "flex", gap: 10, marginTop: 10 }}>
