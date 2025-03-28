@@ -72,6 +72,7 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
     "B": 3,
     "C": 2,
     "D": 0, // D = éliminatoire
+    "N/A": 1,
   };
 
   const weights = {
@@ -79,11 +80,11 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
     "Batterie": 4.5,
     "Clavier": 2,
     "Touchpad": 1,
-    "CPU & RAM": 1,
+    "CPU & RAM": 0,
     "Disque dur": 4,
     "Webcam": 1,
     "Hauts parleurs": 1,
-    "Wifi/Bluetooth": 1,
+    "Wifi/Bluetooth": 0,
     "Charnières": 2,
     "Écran": 4,
     "Ports": 2,
@@ -188,7 +189,10 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
             </tr>
           </thead>
           <tbody>
-            {criteriaList[deviceType].map((crit) => (
+          {criteriaList[deviceType].map((crit) => {
+            if (criteria[crit]?.grade === "N/A") return null; // Ne pas afficher la ligne si "NN"
+
+            return (
               <tr key={crit}>
                 <td style={{ border: "0.5px solid #333", padding: 8, fontWeight: "bold", verticalAlign: "middle", height: 40 }}>
                   {crit}
@@ -221,7 +225,8 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
                   );
                 })}
               </tr>
-            ))}
+            );
+          })}
           </tbody>
         </table>
         <p style={{textAlign: "center", marginTop: 10}}><strong>✅ Tous les composants ont été testés manuellement</strong></p>

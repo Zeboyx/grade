@@ -92,6 +92,7 @@ export default function GradeForm() {
       B: "Bon état",
       C: "Tache(s)",
       D: "A changer",
+      'N/A': "Non applicable",
     },
     'Hauts parleurs': {
       "A+": "Parfait état",
@@ -99,10 +100,12 @@ export default function GradeForm() {
       B: "Grésillement légers",
       C: "Grésillement marqués",
       D: "A changer",
+      'N/A': "Non applicable",
     },
     'Wifi/Bluetooth': {
       "A+": "100% Fonctionnel",
       D: "A changer",
+      'N/A': "Non applicable",
     },
     Charnières: {
       "A+": "Parfait état",
