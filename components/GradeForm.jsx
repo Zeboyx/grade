@@ -150,6 +150,13 @@ export default function GradeForm() {
   const handleGenerate = () => {
     setSubmitted(true);
   };
+
+  const isFormComplete = () => {
+    if (!form.deviceType) return false;
+    const requiredCriteria = criteriaByDevice[form.deviceType];
+    return requiredCriteria.every((crit) => form.criteria[crit]?.grade);
+  };
+  
   
   return (
     <div className="p-4 max-w-6xl mx-auto space-y-6">
@@ -211,8 +218,12 @@ export default function GradeForm() {
             </div>
           )}
 
-          {form.deviceType && (
-            <Button className="mt-4" onClick={handleGenerate}>
+          {form.deviceType && isFormComplete() && (
+            <Button
+              className="mt-4 bg-blue-600 text-white hover:bg-blue-700 w-full"
+              onClick={handleGenerate}
+              style={{ width: "100%" }}
+            >
               Générer
             </Button>
           )}
