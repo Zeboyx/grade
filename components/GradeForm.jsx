@@ -14,11 +14,7 @@ export default function GradeForm() {
     deviceType: "",
     criteria: {},
   });
-  const [submitted, setSubmitted] = useState(false);
-  useEffect(() => {
-    document.title = "Attribution des grades";
-  }, []);
-  
+  const [submitted, setSubmitted] = useState(false);  
 
   const criteriaByDevice = {
     "PC Portable": [

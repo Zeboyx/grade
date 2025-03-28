@@ -7,3 +7,10 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
+export const metadata = {
+  title: "Attribution des grades",
+  icons: {
+    icon: "/favicon.png",
+  },
+};
