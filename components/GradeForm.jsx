@@ -88,7 +88,8 @@ export default function GradeForm() {
     },
     Webcam: {
       "A+": "Parfait état",
-      A: "Bon état",
+      A: "Très bon état",
+      B: "Bon état",
       C: "Tache(s)",
       D: "A changer",
     },
@@ -105,7 +106,8 @@ export default function GradeForm() {
     },
     Charnières: {
       "A+": "Parfait état",
-      A: "Bon état",
+      A: "Très bon état",
+      B: "Bon état",
       C: "Etat d'usure",
       D: "A changer",
     },
