@@ -15,6 +15,7 @@ logs
 # OS
 .DS_Store
 Thumbs.db
+reload.bat
 
 # Env / secrets
 .env
