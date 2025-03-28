@@ -42,7 +42,7 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
       "Batterie",
       "Clavier",
       "Touchpad",
-      "CPU & RAM",
+      "CPU, RAM & GPU",
       "Disque dur",
       "Webcam",
       "Hauts parleurs",
@@ -54,7 +54,7 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
     ],
     "Tout-en-Un": [
       "Chassis",
-      "CPU & RAM",
+      "CPU, RAM & GPU",
       "Disque dur",
       "Webcam",
       "Hauts parleurs",
@@ -63,7 +63,7 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
       "Ports",
       "Ventilateurs",
     ],
-    "PC Fixe": ["Chassis", "CPU & RAM", "Disque dur", "Wifi/Bluetooth", "Ports", "Ventilateurs"],
+    "PC Fixe": ["Chassis", "CPU, RAM & GPU", "Disque dur", "Wifi/Bluetooth", "Ports", "Ventilateurs"],
   };
 
   const gradePoints = {
@@ -76,20 +76,20 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
   };
 
   const weights = {
-    "Chassis": 1,
     "Batterie": 4.5,
-    "Clavier": 2,
-    "Touchpad": 1,
-    "CPU & RAM": 0,
     "Disque dur": 4,
-    "Webcam": 1,
-    "Hauts parleurs": 1,
-    "Wifi/Bluetooth": 0,
-    "Charnières": 2,
     "Écran": 4,
+    "Clavier": 2,
+    "Charnières": 2,
     "Ports": 2,
     "Ventilateurs": 2,
-  };
+    "Chassis": 1,
+    "Touchpad": 1,
+    "Webcam": 1,
+    "Hauts parleurs": 1,
+    "CPU, RAM & GPU": 0,
+    "Wifi/Bluetooth": 0,
+  };  
 
   const computeFinalGrade = () => {
     let totalPoints = 0;
@@ -230,6 +230,7 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
           </tbody>
         </table>
         <p style={{textAlign: "center", marginTop: 10}}><strong>✅ Tous les composants ont été testés manuellement</strong></p>
+        <p style={{textAlign: "center", fontSize: 12, color: "#555"}}>* Les éléments sans impact sur le grade global sont néanmoins vérifiés et notés « À changer » en cas de défaut.</p>
       </div>
 
       <div style={{ display: "flex", gap: 10, marginTop: 10 }}>

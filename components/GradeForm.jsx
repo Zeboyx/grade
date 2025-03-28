@@ -22,7 +22,7 @@ export default function GradeForm() {
       "Batterie",
       "Clavier",
       "Touchpad",
-      "CPU & RAM",
+      "CPU, RAM & GPU",
       "Disque dur",
       "Webcam",
       "Hauts parleurs",
@@ -34,7 +34,7 @@ export default function GradeForm() {
     ],
     "Tout-en-Un": [
       "Chassis",
-      "CPU & RAM",
+      "CPU, RAM & GPU",
       "Disque dur",
       "Webcam",
       "Hauts parleurs",
@@ -43,7 +43,7 @@ export default function GradeForm() {
       "Ports",
       "Ventilateurs",
     ],
-    "PC Fixe": ["Chassis", "CPU & RAM", "Disque dur", "Wifi/Bluetooth", "Ports", "Ventilateurs"],
+    "PC Fixe": ["Chassis", "CPU, RAM & GPU", "Disque dur", "Wifi/Bluetooth", "Ports", "Ventilateurs"],
   };
 
   const gradeDescriptions = {
@@ -75,7 +75,7 @@ export default function GradeForm() {
       C: "Usure marquée",
       D: "A changer",
     },
-    'CPU & RAM': {
+    'CPU, RAM & GPU': {
       "A+": "100% Fonctionnels",
       D: 'A changer',
     },
