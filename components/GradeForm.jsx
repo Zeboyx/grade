@@ -124,7 +124,7 @@ export default function GradeForm() {
     Ports: {
       "A+": "Excellent",
       A: "Bon état",
-      B: "Fonctionnels avec usure minime",
+      B: "Fonctionnels avec usure légère",
       C: "Défauts",
       D: "A changer",
     },
