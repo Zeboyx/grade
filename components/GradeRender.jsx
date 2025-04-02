@@ -72,19 +72,19 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
     "B": 3,
     "C": 2,
     "D": 0, // D = éliminatoire
-    "N/A": 1,
+    "N/A": 0,
   };
 
   const weights = {
     "Batterie": 4.5,
     "Disque dur": 4,
     "Écran": 4,
+    "Ports": 3,
+    "Ventilateurs": 3,
     "Clavier": 2,
+    "Touchpad": 2,
     "Charnières": 2,
-    "Ports": 2,
-    "Ventilateurs": 2,
     "Chassis": 1,
-    "Touchpad": 1,
     "Webcam": 1,
     "Hauts parleurs": 1,
     "CPU, RAM & GPU": 0,
