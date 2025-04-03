@@ -38,32 +38,32 @@ export default function GradeRender({ model, serial, criteria, deviceType, grade
 
   const criteriaList = {
     "PC Portable": [
-      "Chassis",
-      "Batterie",
-      "Clavier",
-      "Touchpad",
       "CPU, RAM & GPU",
+      "Wifi/Bluetooth",
+      "Batterie",
       "Disque dur",
       "Webcam",
       "Hauts parleurs",
-      "Wifi/Bluetooth",
+      "Chassis",
       "Charnières",
+      "Clavier",
+      "Touchpad",
       "\u00c9cran",
       "Ports",
       "Ventilateurs",
     ],
     "Tout-en-Un": [
-      "Chassis",
       "CPU, RAM & GPU",
+      "Wifi/Bluetooth",
       "Disque dur",
       "Webcam",
       "Hauts parleurs",
-      "Wifi/Bluetooth",
+      "Chassis",
       "\u00c9cran",
       "Ports",
       "Ventilateurs",
     ],
-    "PC Fixe": ["Chassis", "CPU, RAM & GPU", "Disque dur", "Wifi/Bluetooth", "Ports", "Ventilateurs"],
+    "PC Fixe": ["CPU, RAM & GPU", "Wifi/Bluetooth", "Disque dur", "Chassis",  "Ports", "Ventilateurs"],
   };
 
   const gradePoints = {
