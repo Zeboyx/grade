@@ -15,6 +15,19 @@ export default function GradeForm() {
     criteria: {},
   });
   const [submitted, setSubmitted] = useState(false);  
+  
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const model = params.get('model');
+    const serial = params.get('sn');
+  
+    setForm((prev) => ({
+      ...prev,
+      model: model || "",
+      serial: serial || "",
+    }));
+  }, []);
+  
 
   const criteriaByDevice = {
     "PC Portable": [
