@@ -20,14 +20,57 @@ export default function GradeForm() {
     const params = new URLSearchParams(window.location.search);
     const model = params.get('model');
     const serial = params.get('sn');
+    const battery = params.get('battery');
+    const ssd = params.get('ssd');
   
+    // Appliquer model et serial
     setForm((prev) => ({
       ...prev,
       model: model || "",
       serial: serial || "",
     }));
-  }, []);
   
+    // Fonction pour mapper pourcentage en grade
+    const getGradeFromPercentage = (value) => {
+      const percent = parseFloat(value);
+      if (isNaN(percent)) return null;
+      if (percent > 85) return "A+";
+      if (percent > 75) return "A";
+      if (percent > 50) return "B";
+      if (percent > 35) return "C";
+      return "D";
+    };
+  
+    // Appliquer les grades si battery ou ssd présents
+    if (battery || ssd) {
+      setForm((prev) => {
+        const updatedCriteria = { ...prev.criteria };
+  
+        if (battery) {
+          const batteryGrade = getGradeFromPercentage(battery);
+          if (batteryGrade)
+            updatedCriteria["Batterie"] = {
+              grade: batteryGrade,
+              description: gradeDescriptions["Batterie"][batteryGrade],
+            };
+        }
+  
+        if (ssd) {
+          const ssdGrade = getGradeFromPercentage(ssd);
+          if (ssdGrade)
+            updatedCriteria["Disque dur"] = {
+              grade: ssdGrade,
+              description: gradeDescriptions["Disque dur"][ssdGrade],
+            };
+        }
+  
+        return {
+          ...prev,
+          criteria: updatedCriteria,
+        };
+      });
+    }
+  }, []);    
 
   const criteriaByDevice = {
     "PC Portable": [
