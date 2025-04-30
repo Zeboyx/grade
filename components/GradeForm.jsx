@@ -15,22 +15,29 @@ export default function GradeForm() {
     criteria: {},
   });
   const [submitted, setSubmitted] = useState(false);  
+  const urlCriteriaRef = useRef({ battery: null, ssd: null });
   
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const model = params.get('model');
-    const serial = params.get('sn');
-    const battery = params.get('battery');
-    const ssd = params.get('ssd');
+    const model = params.get("model");
+    const serial = params.get("sn");
+    const battery = params.get("battery");
+    const ssd = params.get("ssd");
   
-    // Appliquer model et serial
+    urlCriteriaRef.current = { battery, ssd }; // On les garde au chaud
+  
     setForm((prev) => ({
       ...prev,
       model: model || "",
       serial: serial || "",
     }));
+  }, []);
+
+  useEffect(() => {
+    if (!form.deviceType) return;
   
-    // Fonction pour mapper pourcentage en grade
+    const { battery, ssd } = urlCriteriaRef.current;
+  
     const getGradeFromPercentage = (value) => {
       const percent = parseFloat(value);
       if (isNaN(percent)) return null;
@@ -41,37 +48,40 @@ export default function GradeForm() {
       return "D";
     };
   
-    // Appliquer les grades si battery ou ssd présents
-    if (battery || ssd) {
-      setForm((prev) => {
-        const updatedCriteria = { ...prev.criteria };
+    const updatedCriteria = { ...form.criteria };
   
-        if (battery) {
-          const batteryGrade = getGradeFromPercentage(battery);
-          if (batteryGrade)
-            updatedCriteria["Batterie"] = {
-              grade: batteryGrade,
-              description: gradeDescriptions["Batterie"][batteryGrade],
-            };
+    if (
+      form.deviceType === "PC Portable" ||
+      form.deviceType === "Tout-en-Un" ||
+      form.deviceType === "PC Fixe"
+    ) {
+      if (battery && criteriaByDevice[form.deviceType].includes("Batterie")) {
+        const grade = getGradeFromPercentage(battery);
+        if (grade) {
+          updatedCriteria["Batterie"] = {
+            grade,
+            description: gradeDescriptions["Batterie"][grade],
+          };
         }
+      }
   
-        if (ssd) {
-          const ssdGrade = getGradeFromPercentage(ssd);
-          if (ssdGrade)
-            updatedCriteria["Disque dur"] = {
-              grade: ssdGrade,
-              description: gradeDescriptions["Disque dur"][ssdGrade],
-            };
+      if (ssd && criteriaByDevice[form.deviceType].includes("Disque dur")) {
+        const grade = getGradeFromPercentage(ssd);
+        if (grade) {
+          updatedCriteria["Disque dur"] = {
+            grade,
+            description: gradeDescriptions["Disque dur"][grade],
+          };
         }
+      }
   
-        return {
-          ...prev,
-          criteria: updatedCriteria,
-        };
-      });
+      setForm((prev) => ({
+        ...prev,
+        criteria: updatedCriteria,
+      }));
     }
-  }, []);    
-
+  }, [form.deviceType]);
+  
   const criteriaByDevice = {
     "PC Portable": [
       "CPU, RAM & GPU",
